@@ -1,0 +1,24 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- Text Input Style -->
+    <style name="TextInputMain">
+        <item name="android:textColor">@color/mainWhite</item>
+        <item name="android:textColorHint">@color/mainWhite</item>
+        <item name="colorAccent">@color/colorLogoBlue</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="colorControlNormal">@color/colorLogoYellow</item>
+        <item name="colorControlActivated">@color/colorLogoBlue</item>
+    </style>
+
+    <style name="FontMontserrat">
+        <item name="android:fontFamily">@font/montserrat</item>
+    </style>
+</resources>

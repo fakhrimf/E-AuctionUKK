@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/automotive"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDarkBackground"
+    tools:context=".ui.automotive.AutomotiveFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAuto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="true"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/recycler_item" />
+
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/errorNoItem"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:contentDescription="@string/no_items_up"
+        android:src="@drawable/no_items"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/errorNoItemText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="18dp"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/no_items_up"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/mainWhite"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/errorNoItem" />
+
+    <ProgressBar
+        android:id="@+id/progressBarHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/colorLogoYellow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

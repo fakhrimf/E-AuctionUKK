@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "531082677503",
+    "firebase_url": "https://e-auction-edb5b.firebaseio.com",
+    "project_id": "e-auction-edb5b",
+    "storage_bucket": "e-auction-edb5b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531082677503:android:8976cdf1e5fa5edc9a90ca",
+        "android_client_info": {
+          "package_name": "com.fakhrimf.e_auctionlatihan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "531082677503-rv24563mjukok1kg8q1rbbsu0dg26cv1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fakhrimf.e_auctionlatihan",
+            "certificate_hash": "5e434b64d0abc66017598d57e9c88882bc558bbc"
+          }
+        },
+        {
+          "client_id": "531082677503-i1ikjobrk997bi15l9aa95ovub0r8jk7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2plj7hToM6D-LC4MEvOsNHj0pycvBmIs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "531082677503-i1ikjobrk997bi15l9aa95ovub0r8jk7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
