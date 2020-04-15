@@ -3,6 +3,7 @@ package com.fakhrimf.e_auctionlatihan.utils.adapter
 import android.annotation.SuppressLint
 import android.view.View
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
@@ -11,6 +12,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.fakhrimf.e_auctionlatihan.R
 import com.fakhrimf.e_auctionlatihan.model.ItemModel
 import com.fakhrimf.e_auctionlatihan.utils.DATE_FORMAT
+import com.fakhrimf.e_auctionlatihan.utils.GENDER_FEMALE
+import com.fakhrimf.e_auctionlatihan.utils.GENDER_MALE
 import com.fakhrimf.e_auctionlatihan.utils.repository.Repository
 import jp.wasabeef.glide.transformations.BlurTransformation
 import java.text.NumberFormat
@@ -25,6 +28,24 @@ fun setImageBlurred(imageView: ImageView, url: String) {
 @BindingAdapter("setImage")
 fun setImage(imageView: ImageView, url: String) {
     Glide.with(imageView.rootView).load(url).into(imageView)
+}
+
+@BindingAdapter("setGender")
+fun setGender(spinner: Spinner, gender: String) {
+    when (gender) {
+        GENDER_MALE -> spinner.setSelection(0)
+        GENDER_FEMALE -> spinner.setSelection(1)
+    }
+}
+
+@BindingAdapter("setProfileImage")
+fun setProfileImage(imageView: ImageView, url: String?) {
+    val noImage = "https://vectorified.com/images/no-profile-picture-icon-8.jpg"
+    if(url != null) {
+        Glide.with(imageView.rootView).load(url).into(imageView)
+    } else {
+        Glide.with(imageView.rootView).load(noImage).into(imageView)
+    }
 }
 
 @BindingAdapter("setUserName")

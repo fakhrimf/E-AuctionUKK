@@ -1,10 +1,12 @@
 package com.fakhrimf.e_auctionlatihan.ui.viewrequest
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.fakhrimf.e_auctionlatihan.R
 import com.fakhrimf.e_auctionlatihan.model.ItemModel
 import com.fakhrimf.e_auctionlatihan.utils.REQUEST_SHARED_KEY
@@ -14,6 +16,7 @@ import com.fakhrimf.e_auctionlatihan.utils.listener.RecyclerListener
 import com.fakhrimf.e_auctionlatihan.utils.repository.Repository
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.android.synthetic.main.recycler_item.*
 import kotlinx.android.synthetic.main.view_request_fragment.*
 
 class ViewRequestFragment : BaseFragment(), RecyclerListener {
@@ -64,19 +67,80 @@ class ViewRequestFragment : BaseFragment(), RecyclerListener {
             dueInput.setText(it)
         })
         btnAccept.setOnClickListener {
-            if (!isEmpty()) {
-                showInfo(getString(R.string.loading))
-                vm.acceptRequest(getSelectedItems(), dueInput.text.toString()).observe(viewLifecycleOwner, Observer {
-                    if (it.success) {
-                        showSuccess(getString(R.string.items_approved))
-                    } else {
-                        showError(it.message)
-                    }
-                })
-            }
+            accept()
         }
         btnDecline.setOnClickListener {
-            vm.declineRequest(getSelectedItems())
+            decline()
+        }
+    }
+
+    private fun accept() {
+        if (!isEmpty()) {
+            SweetAlertDialog(requireContext(), SweetAlertDialog.WARNING_TYPE).apply {
+                titleText = getString(R.string.accept_ask)
+                confirmText = getString(R.string.accept)
+                setConfirmClickListener { sweet ->
+                    sweet.apply {
+                        changeAlertType(SweetAlertDialog.PROGRESS_TYPE)
+                        titleText = getString(R.string.loading)
+                        setCancelable(false)
+                    }
+                    vm.acceptRequest(getSelectedItems(), dueInput.text.toString()).observe(viewLifecycleOwner, Observer {
+                        if (it.success) {
+                            sweet.apply {
+                                changeAlertType(SweetAlertDialog.SUCCESS_TYPE)
+                                titleText = getString(R.string.success)
+                            }
+                            Handler().postDelayed({
+                                sweet.dismissWithAnimation()
+                            }, 1000)
+                        } else {
+                            sweet.apply {
+                                changeAlertType(SweetAlertDialog.ERROR_TYPE)
+                                titleText = it.message
+                            }
+                            Handler().postDelayed({
+                                sweet.dismissWithAnimation()
+                            }, 1000)
+                        }
+                    })
+                }
+            }
+        }
+    }
+
+    private fun decline() {
+        if (!isUnselected()) {
+            SweetAlertDialog(requireContext(), SweetAlertDialog.WARNING_TYPE).apply {
+                titleText = getString(R.string.decline_ask)
+                confirmText = getString(R.string.decline)
+                setConfirmClickListener { sweet ->
+                    sweet.apply {
+                        changeAlertType(SweetAlertDialog.PROGRESS_TYPE)
+                        titleText = getString(R.string.loading)
+                        setCancelable(false)
+                    }
+                    vm.declineRequest(getSelectedItems()).observe(viewLifecycleOwner, Observer {
+                        if (it.success) {
+                            sweet.apply {
+                                changeAlertType(SweetAlertDialog.SUCCESS_TYPE)
+                                titleText = getString(R.string.success)
+                            }
+                            Handler().postDelayed({
+                                sweet.dismissWithAnimation()
+                            }, 1000)
+                        } else {
+                            sweet.apply {
+                                changeAlertType(SweetAlertDialog.ERROR_TYPE)
+                                titleText = it.message
+                            }
+                            Handler().postDelayed({
+                                sweet.dismissWithAnimation()
+                            }, 1000)
+                        }
+                    })
+                }
+            }
         }
     }
 
@@ -123,5 +187,17 @@ class ViewRequestFragment : BaseFragment(), RecyclerListener {
             check = true
         }
         return check
+    }
+
+    private fun isUnselected() : Boolean {
+        val selectedItemShared by lazy {
+            Repository.getSharedPreferences(requireContext())?.getString(REQUEST_SHARED_KEY, null)
+        }
+        return if (getSelectedItems().size < 1 || selectedItemShared == null || selectedItemShared == "") {
+            showWarning(getString(R.string.items_unselected))
+            true
+        } else {
+            false
+        }
     }
 }

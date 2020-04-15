@@ -5,4 +5,5 @@ import com.fakhrimf.e_auctionlatihan.utils.boilerplate.BaseAndroidViewModel
 
 class AutomotiveViewModel(application: Application) : BaseAndroidViewModel(application) {
     fun getRequestHome() = repo.getRequestHome(context)
+    fun searchHome(query: String) = repo.searchHome(query)
 }

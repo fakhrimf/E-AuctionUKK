@@ -55,7 +55,7 @@ class Repository {
     fun registerProfile(context: Context, profileModel: ProfileModel): MutableLiveData<DatabaseMessageModel> {
         val liveData = MutableLiveData<DatabaseMessageModel>()
         profileModel.id = "${reference.push().key}"
-        getChild(DB_CHILD_USER).addValueEventListener(object : ValueEventListener {
+        getChild(DB_CHILD_USER).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 liveData.value = DatabaseMessageModel(false, p0.message)
             }
@@ -83,6 +83,39 @@ class Repository {
                 }
             }
         })
+        return liveData
+    }
+
+    fun editProfile(context: Context, profileModel: ProfileModel, path: Uri?): MutableLiveData<DatabaseMessageModel> {
+        val liveData = MutableLiveData<DatabaseMessageModel>()
+        val ref = storageReference.child(STORAGE_IMAGES).child(profileModel.id).child(profileModel.username)
+        if (path != null) {
+            ref.putFile(path).apply {
+                addOnSuccessListener {
+                    ref.downloadUrl.apply {
+                        addOnSuccessListener {
+                            profileModel.image = it.toString()
+                            getChild(DB_CHILD_USER).child(profileModel.id).setValue(profileModel).addOnSuccessListener {
+                                liveData.value = DatabaseMessageModel(true, DB_SET_VALUE_SUCCESS)
+                                storeUser(context, profileModel)
+                            }
+                        }
+                        addOnFailureListener {
+                            liveData.value = DatabaseMessageModel(false, "${it.message}")
+                        }
+                    }
+                }
+                addOnFailureListener {
+                    liveData.value = DatabaseMessageModel(false, "${it.message}")
+                }
+            }
+        } else {
+            getChild(DB_CHILD_USER).child(profileModel.id).setValue(profileModel).addOnSuccessListener {
+                liveData.value = DatabaseMessageModel(true, DB_SET_VALUE_SUCCESS)
+                storeUser(context, profileModel)
+            }
+        }
+
         return liveData
     }
 
@@ -136,7 +169,7 @@ class Repository {
 
     fun getAdminCode(): MutableLiveData<String> {
         val liveData = MutableLiveData<String>()
-        getChild(DB_CHILD_CREDENTIAL).child(DB_CHILD_ADMIN_CODE).addValueEventListener(object : ValueEventListener {
+        getChild(DB_CHILD_CREDENTIAL).child(DB_CHILD_ADMIN_CODE).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 liveData.value = ERROR_GET_CODE
             }
@@ -267,7 +300,7 @@ class Repository {
         return liveData
     }
 
-    fun getAllRequest(context: Context): MutableLiveData<ArrayList<ItemModel>> {
+    private fun getAllRequest(context: Context): MutableLiveData<ArrayList<ItemModel>> {
         val liveData = MutableLiveData<ArrayList<ItemModel>>()
         val list = ArrayList<ItemModel>()
         getChild(DB_CHILD_REQUEST).addValueEventListener(object : ValueEventListener {
@@ -318,10 +351,6 @@ class Repository {
         return liveData
     }
 
-    private fun addBid(itemModel: ItemModel) {
-        getChild(DB_CHILD_REQUEST).child(itemModel.id).setValue(itemModel)
-    }
-
     fun getHighestBid(itemModel: ItemModel): MutableLiveData<String> {
         val liveData = MutableLiveData<String>()
         getChild(DB_CHILD_REQUEST).orderByChild(DB_CHILD_ID).equalTo(itemModel.id).addValueEventListener(object : ValueEventListener {
@@ -343,7 +372,7 @@ class Repository {
         return liveData
     }
 
-    fun getBids(itemModel: ItemModel): MutableLiveData<ArrayList<BidModel>> {
+    private fun getBids(itemModel: ItemModel): MutableLiveData<ArrayList<BidModel>> {
         val liveData = MutableLiveData<ArrayList<BidModel>>()
         val list = ArrayList<BidModel>()
         getChild(DB_CHILD_REQUEST).child(itemModel.id).child(DB_CHILD_BIDS).orderByChild("bid").addValueEventListener(object : ValueEventListener {
@@ -422,6 +451,31 @@ class Repository {
                 }
             }
             liveData.value = list
+        })
+        return liveData
+    }
+
+    fun searchHome(query: String) : MutableLiveData<ArrayList<ItemModel>> {
+        val liveData = MutableLiveData<ArrayList<ItemModel>>()
+        val list = ArrayList<ItemModel>()
+        val today = DateTime()
+        val sdf = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
+        getChild(DB_CHILD_REQUEST).orderByChild(DB_CHILD_STATUS).equalTo(APPROVED_STATUS).addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                list.clear()
+                for (i in p0.children) {
+                    val model = i.getValue(ItemModel::class.java)
+                    if (today.isBefore(DateTime(sdf.parse(model!!.due))) || today.isEqual(DateTime(sdf.parse(model.due)))) {
+                        if (model.title.contains(query, true)) model.let { list.add(it) }
+                    }
+                }
+                list.reverse()
+                liveData.value = list
+            }
         })
         return liveData
     }

@@ -3,10 +3,8 @@ package com.fakhrimf.e_auctionlatihan.utils.boilerplate
 import android.view.Menu
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import cn.pedant.SweetAlert.SweetAlertDialog
 import com.fakhrimf.e_auctionlatihan.R
 import es.dmoral.toasty.Toasty
-import kotlin.concurrent.timer
 
 open class BaseFragment : Fragment() {
     fun setMenuItemVisibility(menu: Menu, visible: Boolean) {

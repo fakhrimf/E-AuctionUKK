@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">E-Auction</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="latihan">Latihan</string>
     <string name="slogan">Bid, Bid, Bid!</string>
@@ -10,7 +9,7 @@
     <string name="login">Login</string>
     <string name="no_account">No Account?</string>
     <string name="lets_get_started">Let\'s get started!</string>
-<!--    <string name="rick_roll">We\'re no strangers to love You know the rules and so do I A full commitment\'s what I\'m thinking of You wouldn\'t get this from any other guy I just wanna tell you how I\'m feeling Gotta make you understand Never gonna give you up Never gonna let you down Never gonna run around and desert you Never gonna make you cry Never gonna say goodbye Never gonna tell a lie and hurt you We\'ve known each other for so long Your heart\'s been aching but you\'re too shy to say it Inside we both know what\'s been going on We know the game and we\'re gonna play it And if you ask me how I\'m feeling Don\'t tell me you\'re too blind to see Never gonna give you up Never gonna let you down Never gonna run around and desert you Never gonna make you cry Never gonna say goodbye Never gonna tell a lie and hurt you Never gonna give you up Never gonna let you down Never gonna run around and desert you Never gonna make you cry Never gonna say goodbye Never gonna tell a lie and hurt you Never gonna give, never gonna give (Give you up) (Ooh) Never gonna give, never gonna give (Give you up) We\'ve known each other for so long…</string>-->
+    <!--    <string name="rick_roll">We\'re no strangers to love You know the rules and so do I A full commitment\'s what I\'m thinking of You wouldn\'t get this from any other guy I just wanna tell you how I\'m feeling Gotta make you understand Never gonna give you up Never gonna let you down Never gonna run around and desert you Never gonna make you cry Never gonna say goodbye Never gonna tell a lie and hurt you We\'ve known each other for so long Your heart\'s been aching but you\'re too shy to say it Inside we both know what\'s been going on We know the game and we\'re gonna play it And if you ask me how I\'m feeling Don\'t tell me you\'re too blind to see Never gonna give you up Never gonna let you down Never gonna run around and desert you Never gonna make you cry Never gonna say goodbye Never gonna tell a lie and hurt you Never gonna give you up Never gonna let you down Never gonna run around and desert you Never gonna make you cry Never gonna say goodbye Never gonna tell a lie and hurt you Never gonna give, never gonna give (Give you up) (Ooh) Never gonna give, never gonna give (Give you up) We\'ve known each other for so long…</string>-->
     <string name="description">Description</string>
     <string name="latest_bid">Latest Bid</string>
     <string name="add_your_bid">Add your bid</string>
@@ -92,5 +91,11 @@
     <string name="success">Success!</string>
     <string name="uploading_request">Uploading your request</string>
     <string name="ask_sure">Are you sure?</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
+    <string name="update">update</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="my_request">My request(s)</string>
+    <string name="origin_error">Please input your origin</string>
+    <string name="accept_ask">Accept these item(s)?</string>
+    <string name="decline_ask">Decline these item(s)?</string>
 </resources>

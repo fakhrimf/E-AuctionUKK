@@ -13,12 +13,10 @@ import com.fakhrimf.e_auctionlatihan.R
 import com.fakhrimf.e_auctionlatihan.ViewRequestActivity
 import com.fakhrimf.e_auctionlatihan.model.ItemModel
 import com.fakhrimf.e_auctionlatihan.utils.MODEL_INTENT_KEY
-import com.fakhrimf.e_auctionlatihan.utils.PROFILE_INTENT_KEY
 import com.fakhrimf.e_auctionlatihan.utils.ROLE_ADMIN
 import com.fakhrimf.e_auctionlatihan.utils.adapter.RecyclerAdapter
 import com.fakhrimf.e_auctionlatihan.utils.boilerplate.BaseFragment
 import com.fakhrimf.e_auctionlatihan.utils.listener.RecyclerListener
-import com.fakhrimf.e_auctionlatihan.utils.repository.Repository
 import kotlinx.android.synthetic.main.automotive_fragment.*
 
 class AutomotiveFragment : BaseFragment(), RecyclerListener {
@@ -35,8 +33,24 @@ class AutomotiveFragment : BaseFragment(), RecyclerListener {
         return inflater.inflate(R.layout.automotive_fragment, container, false)
     }
 
-    private fun setRecycler(){
+    private fun setRecycler() {
         vm.getRequestHome().observe(viewLifecycleOwner, Observer {
+            rvAuto.layoutManager = LinearLayoutManager(context)
+            rvAuto.adapter = RecyclerAdapter(it, this)
+            progressBarHome.visibility = View.INVISIBLE
+            srl.isRefreshing = false
+            if (it.size < 1) {
+                errorNoItem.visibility = View.VISIBLE
+                errorNoItemText.visibility = View.VISIBLE
+            } else {
+                errorNoItem.visibility = View.GONE
+                errorNoItemText.visibility = View.GONE
+            }
+        })
+    }
+
+    private fun setRecyclerSearch(query: String) {
+        vm.searchHome(query).observe(viewLifecycleOwner, Observer {
             rvAuto.layoutManager = LinearLayoutManager(context)
             rvAuto.adapter = RecyclerAdapter(it, this)
             progressBarHome.visibility = View.INVISIBLE
@@ -53,6 +67,9 @@ class AutomotiveFragment : BaseFragment(), RecyclerListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setHasOptionsMenu(true)
+        srl.setOnRefreshListener {
+            setRecycler()
+        }
         setRecycler()
     }
 
@@ -66,6 +83,7 @@ class AutomotiveFragment : BaseFragment(), RecyclerListener {
         val searchView = item.actionView as SearchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
+                setRecyclerSearch(query)
                 return false
             }
 
@@ -92,7 +110,6 @@ class AutomotiveFragment : BaseFragment(), RecyclerListener {
         return when (item.itemId) {
             R.id.profile -> {
                 val intent = Intent(context, ProfileActivity::class.java)
-                intent.putExtra(PROFILE_INTENT_KEY, Repository.getCurrentUser(requireContext()))
                 startActivity(intent)
                 true
             }

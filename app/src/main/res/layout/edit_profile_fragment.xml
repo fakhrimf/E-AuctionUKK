@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.fakhrimf.e_auctionlatihan.model.ProfileModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDarkBackground">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/topPanel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/dpLayout"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    app:cardCornerRadius="100dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/dpImage"
+                        android:scaleType="centerCrop"
+                        setProfileImage="@{model.image}"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/pandem_aero" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/colorLogoBlue"
+                    app:cardCornerRadius="100dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/dpLayout"
+                    app:layout_constraintEnd_toEndOf="@+id/dpLayout">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_edit"
+                        tools:ignore="ContentDescription" />
+
+                    <LinearLayout
+                        android:id="@+id/btnAddPic"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/ripple_yellow"
+                        android:orientation="vertical" />
+                </androidx.cardview.widget.CardView>
+
+                <ImageView
+                    android:id="@+id/ivProfileIcon"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginTop="48dp"
+                    android:src="@drawable/ic_person_white"
+                    android:tint="@color/colorLogoYellow"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dpLayout"
+                    tools:ignore="ContentDescription" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="48dp"
+                    android:theme="@style/TextInputMain"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivProfileIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ivProfileIcon"
+                    app:layout_constraintTop_toTopOf="@+id/ivProfileIcon">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/nameInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/name"
+                        android:text="@{model.name}"
+                        android:textColor="@color/mainWhite"
+                        tools:text="Sumanto" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/ivGenderIcon"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginTop="24dp"
+                    android:src="@drawable/ic_gender"
+                    android:tint="@color/colorLogoYellow"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/etName"
+                    tools:ignore="ContentDescription" />
+
+                <Spinner
+                    android:id="@+id/spinnerGenderEdit"
+                    setGender="@{model.gender}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="48dp"
+                    android:backgroundTint="@color/colorLogoYellow"
+                    android:entries="@array/gender"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivGenderIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ivGenderIcon"
+                    app:layout_constraintTop_toTopOf="@+id/ivGenderIcon" />
+
+                <ImageView
+                    android:id="@+id/ivOriginIcon"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginTop="24dp"
+                    android:src="@drawable/ic_origin"
+                    android:tint="@color/colorLogoYellow"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinnerGenderEdit"
+                    tools:ignore="ContentDescription" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etOrigin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="48dp"
+                    android:theme="@style/TextInputMain"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivOriginIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ivOriginIcon"
+                    app:layout_constraintTop_toTopOf="@+id/ivOriginIcon">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/originInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/origin"
+                        android:text="@{model.origin}"
+                        android:textColor="@color/mainWhite"
+                        tools:text="Jember" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/ivInfoIcon"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginTop="24dp"
+                    android:src="@drawable/ic_info"
+                    android:tint="@color/colorLogoYellow"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/etOrigin"
+                    tools:ignore="ContentDescription" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etInfo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="48dp"
+                    android:gravity="start"
+                    android:theme="@style/TextInputMain"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ivInfoIcon"
+                    app:layout_constraintTop_toBottomOf="@+id/etOrigin">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/infoInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="75dp"
+                        android:gravity="start"
+                        android:hint="@string/info"
+                        android:text="@{model.info}"
+                        android:textColor="@color/mainWhite"
+                        tools:text="Saya ganteng" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/updateBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="48dp"
+                    android:background="@drawable/button_bg"
+                    android:text="@string/update"
+                    android:textColor="@color/mainWhite"
+                    app:layout_constraintTop_toBottomOf="@+id/etInfo" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

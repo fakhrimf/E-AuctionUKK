@@ -13,5 +13,6 @@ data class ProfileModel(
     var origin: String = "",
     var info: String = "",
     var username: String = "",
-    var password: String = ""
+    var password: String = "",
+    var image: String? = null
 ) : Parcelable

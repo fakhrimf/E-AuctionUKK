@@ -1,11 +1,9 @@
 package com.fakhrimf.e_auctionlatihan
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import com.fakhrimf.e_auctionlatihan.model.ProfileModel
+import androidx.appcompat.app.AppCompatActivity
 import com.fakhrimf.e_auctionlatihan.ui.profile.ProfileFragment
-import com.fakhrimf.e_auctionlatihan.utils.PROFILE_INTENT_KEY
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -15,11 +13,10 @@ class ProfileActivity : AppCompatActivity() {
         supportActionBar?.elevation = 0F
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = getString(R.string.profile)
-        val model = intent.getParcelableExtra<ProfileModel>(PROFILE_INTENT_KEY)!!
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, ProfileFragment.newInstance(model))
-                .commitNow()
+                    .replace(R.id.container, ProfileFragment.newInstance())
+                    .commitNow()
         }
     }
 

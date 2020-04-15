@@ -64,18 +64,6 @@ class ItemDetailFragment(private val model: ItemModel) : BaseFragment(), ItemDet
         })
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_item_detail_admin, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.takedown -> true
-            else -> true
-        }
-    }
-
     override fun onSubmit() {
         if (bid != "") {
             val formatter = NumberFormat.getCurrencyInstance(Locale.getDefault())
@@ -91,7 +79,6 @@ class ItemDetailFragment(private val model: ItemModel) : BaseFragment(), ItemDet
                     vm.bid(model, bidInput.text.toString()).observe(viewLifecycleOwner, Observer { db ->
                         if (db.success) {
                             showSuccess(getString(R.string.bid_success))
-
                         } else {
                             showError(db.message)
                         }

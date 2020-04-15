@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
+        <activity android:name=".EditProfileActivity"></activity>
         <activity
             android:name=".ViewRequestActivity"
             android:screenOrientation="portrait"
