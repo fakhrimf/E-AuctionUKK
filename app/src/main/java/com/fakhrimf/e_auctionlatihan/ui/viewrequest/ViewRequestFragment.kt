@@ -29,6 +29,8 @@ class ViewRequestFragment : BaseFragment(), RecyclerListener {
         ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(requireActivity().application)).get(ViewRequestViewModel::class.java)
     }
 
+    private lateinit var date: String
+
     private fun setRecycler() {
         vm.getRequest().observe(viewLifecycleOwner, Observer {
             rvRequest.layoutManager = LinearLayoutManager(context)
@@ -64,6 +66,7 @@ class ViewRequestFragment : BaseFragment(), RecyclerListener {
             vm.openDatePickerDialog(requireActivity())
         }
         vm.dateLiveData.observe(viewLifecycleOwner, Observer {
+            date = it
             dueInput.setText(it)
         })
         btnAccept.setOnClickListener {
@@ -85,11 +88,15 @@ class ViewRequestFragment : BaseFragment(), RecyclerListener {
                         titleText = getString(R.string.loading)
                         setCancelable(false)
                     }
-                    vm.acceptRequest(getSelectedItems(), dueInput.text.toString()).observe(viewLifecycleOwner, Observer {
+                    vm.acceptRequest(getSelectedItems(), date).observe(viewLifecycleOwner, Observer {
                         if (it.success) {
                             sweet.apply {
                                 changeAlertType(SweetAlertDialog.SUCCESS_TYPE)
                                 titleText = getString(R.string.success)
+                                getButton(SweetAlertDialog.BUTTON_POSITIVE).visibility = View.GONE
+                                val editor = Repository.getSharedPreferences(requireContext())?.edit()
+                                editor?.putString(REQUEST_SHARED_KEY, null)
+                                editor?.apply()
                             }
                             Handler().postDelayed({
                                 sweet.dismissWithAnimation()
@@ -105,6 +112,7 @@ class ViewRequestFragment : BaseFragment(), RecyclerListener {
                         }
                     })
                 }
+                show()
             }
         }
     }
@@ -125,6 +133,10 @@ class ViewRequestFragment : BaseFragment(), RecyclerListener {
                             sweet.apply {
                                 changeAlertType(SweetAlertDialog.SUCCESS_TYPE)
                                 titleText = getString(R.string.success)
+                                getButton(SweetAlertDialog.BUTTON_POSITIVE).visibility = View.GONE
+                                val editor = Repository.getSharedPreferences(requireContext())?.edit()
+                                editor?.putString(REQUEST_SHARED_KEY, null)
+                                editor?.apply()
                             }
                             Handler().postDelayed({
                                 sweet.dismissWithAnimation()
@@ -140,6 +152,7 @@ class ViewRequestFragment : BaseFragment(), RecyclerListener {
                         }
                     })
                 }
+                show()
             }
         }
     }

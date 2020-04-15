@@ -25,7 +25,7 @@ class ViewRequestViewModel(application: Application) : BaseAndroidViewModel(appl
         dateTime = dateTime.withYear(year)
         dateTime = dateTime.withMonthOfYear(month)
         dateTime = dateTime.withDayOfMonth(dayOfMonth)
-        dateLiveData.value = DateTimeFormat.forPattern(DATE_FORMAT).print(dateTime)
+        dateLiveData.value = DateTimeFormat.forPattern(DATE_FORMAT).print(dateTime.plusMonths(1))
     }
 
     fun openDatePickerDialog(activity: Activity) {
