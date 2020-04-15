@@ -111,7 +111,7 @@ class EditProfileFragment(private var model: ProfileModel) : BaseFragment() {
         model.gender = spinnerGenderEdit.selectedItem.toString()
         model.origin = originInput.text.toString()
         model.info = infoInput.text.toString()
-        showInfo(model.toString())
+        // showInfo(model.toString())
         return model
     }
 }
