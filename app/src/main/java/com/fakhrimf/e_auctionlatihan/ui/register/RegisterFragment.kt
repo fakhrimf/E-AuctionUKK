@@ -40,7 +40,7 @@ class RegisterFragment : BaseFragment() {
                 intent.putExtra(MODEL_INTENT_KEY, model)
                 startActivity(intent)
             } else {
-                if(!isEmpty()) {
+                if (!isEmpty()) {
                     val model = getModel()
                     progressBarRegister.visibility = View.VISIBLE
                     vm.register(requireContext(), model).observe(viewLifecycleOwner, Observer {
@@ -72,29 +72,34 @@ class RegisterFragment : BaseFragment() {
         }
     }
 
-    private fun isEmpty() : Boolean {
+    private fun isEmpty(): Boolean {
         var check = false
-        if(usernameInput.text.toString().isEmpty()) {
+        if (usernameInput.text.toString().length > 20) {
+            check = true
+            usernameInput.error = getString(R.string.username_error_chars)
+        }
+        if (usernameInput.text.toString().isEmpty()) {
             check = true
             usernameInput.error = getString(R.string.username_error)
         }
-        if(passwordInput.text.toString().isEmpty() || passwordInput.text.toString().length < 8) {
+        if (passwordInput.text.toString().isEmpty() || passwordInput.text.toString().length < 8) {
             check = true
             passwordInput.error = getString(R.string.password_error_register)
         }
-        if(nameInput.text.toString().isEmpty()){
+        if (nameInput.text.toString().isEmpty()) {
             check = true
             nameInput.error = getString(R.string.name_error)
         }
-        if(emailInput.text.toString().isEmpty() || !emailInput.text.toString().contains("@", true)) {
+        if (emailInput.text.toString().isEmpty() || !emailInput.text.toString().contains("@", true)) {
             check = true
             emailInput.error = getString(R.string.email_error)
         }
         return check
     }
-    private fun getModel() : ProfileModel {
+
+    private fun getModel(): ProfileModel {
         return ProfileModel(
-            name =  nameInput.text.toString(),
+            name = nameInput.text.toString(),
             gender = spinnerGender.selectedItem.toString(),
             role = spinnerRole.selectedItem.toString(),
             email = emailInput.text.toString(),

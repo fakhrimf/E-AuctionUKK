@@ -41,11 +41,11 @@
 
                     <ImageView
                         android:id="@+id/dpImage"
-                        android:scaleType="centerCrop"
                         setProfileImage="@{model.image}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:contentDescription="@string/app_name"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/pandem_aero" />
                 </androidx.cardview.widget.CardView>
 
@@ -101,6 +101,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/name"
+                        android:maxLength="50"
+                        android:maxLines="2"
                         android:text="@{model.name}"
                         android:textColor="@color/mainWhite"
                         tools:text="Sumanto" />
@@ -162,6 +164,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/origin"
+                        android:maxLength="20"
+                        android:maxLines="2"
                         android:text="@{model.origin}"
                         android:textColor="@color/mainWhite"
                         tools:text="Jember" />
@@ -196,9 +200,11 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/infoInput"
                         android:layout_width="match_parent"
-                        android:layout_height="75dp"
+                        android:layout_height="150dp"
                         android:gravity="start"
                         android:hint="@string/info"
+                        android:maxLength="100"
+                        android:maxLines="4"
                         android:text="@{model.info}"
                         android:textColor="@color/mainWhite"
                         tools:text="Saya ganteng" />

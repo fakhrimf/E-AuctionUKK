@@ -142,6 +142,26 @@ class Repository {
         return liveData
     }
 
+    fun getProfileData(id: String): MutableLiveData<ProfileModel> {
+        val liveData = MutableLiveData<ProfileModel>()
+
+        getChild(DB_CHILD_USER).orderByChild(DB_CHILD_ID).equalTo(id).addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                throw Throwable(p0.message)
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                for (data in p0.children) {
+                    val model = data.getValue(ProfileModel::class.java)
+                    model?.let {
+                        liveData.value = it
+                    }
+                }
+            }
+        })
+        return liveData
+    }
+
     private fun storeUser(context: Context, profileModel: ProfileModel) {
         val sharedPref = context.getSharedPreferences(APP_SHARED_PREFERENCE, MODE_PRIVATE)
         val editor = sharedPref.edit()
@@ -280,6 +300,31 @@ class Repository {
         return liveData
     }
 
+    fun getRequestReport(context: Context): MutableLiveData<ArrayList<ItemModel>> {
+        val liveData = MutableLiveData<ArrayList<ItemModel>>()
+        val list = ArrayList<ItemModel>()
+        val today = DateTime()
+        val sdf = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
+        getChild(DB_CHILD_REQUEST).orderByChild(DB_CHILD_STATUS).equalTo(APPROVED_STATUS).addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                Toasty.error(context, p0.message, Toast.LENGTH_LONG, true).show()
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                list.clear()
+                for (i in p0.children) {
+                    val model = i.getValue(ItemModel::class.java)
+                    if (today.isAfter(DateTime(sdf.parse(model!!.due)))) {
+                        model.let { list.add(it) }
+                    }
+                }
+                list.reverse()
+                liveData.value = list
+            }
+        })
+        return liveData
+    }
+
     fun getApprovedRequest(context: Context): MutableLiveData<ArrayList<ItemModel>> {
         val liveData = MutableLiveData<ArrayList<ItemModel>>()
         val list = ArrayList<ItemModel>()
@@ -372,7 +417,7 @@ class Repository {
         return liveData
     }
 
-    private fun getBids(itemModel: ItemModel): MutableLiveData<ArrayList<BidModel>> {
+    fun getBids(itemModel: ItemModel): MutableLiveData<ArrayList<BidModel>> {
         val liveData = MutableLiveData<ArrayList<BidModel>>()
         val list = ArrayList<BidModel>()
         getChild(DB_CHILD_REQUEST).child(itemModel.id).child(DB_CHILD_BIDS).orderByChild("bid").addValueEventListener(object : ValueEventListener {

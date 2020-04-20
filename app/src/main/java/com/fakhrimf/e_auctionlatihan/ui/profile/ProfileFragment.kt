@@ -13,7 +13,6 @@ import com.fakhrimf.e_auctionlatihan.ItemDetailActivity
 import com.fakhrimf.e_auctionlatihan.R
 import com.fakhrimf.e_auctionlatihan.databinding.ProfileFragmentBinding
 import com.fakhrimf.e_auctionlatihan.model.ItemModel
-import com.fakhrimf.e_auctionlatihan.model.ProfileModel
 import com.fakhrimf.e_auctionlatihan.utils.MODEL_INTENT_KEY
 import com.fakhrimf.e_auctionlatihan.utils.PROFILE_INTENT_KEY
 import com.fakhrimf.e_auctionlatihan.utils.ROLE_ADMIN

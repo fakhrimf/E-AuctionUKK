@@ -7,10 +7,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.fakhrimf.e_auctionlatihan.ItemDetailActivity
-import com.fakhrimf.e_auctionlatihan.ProfileActivity
-import com.fakhrimf.e_auctionlatihan.R
-import com.fakhrimf.e_auctionlatihan.ViewRequestActivity
+import com.fakhrimf.e_auctionlatihan.*
 import com.fakhrimf.e_auctionlatihan.model.ItemModel
 import com.fakhrimf.e_auctionlatihan.utils.MODEL_INTENT_KEY
 import com.fakhrimf.e_auctionlatihan.utils.ROLE_ADMIN
@@ -119,6 +116,8 @@ class AutomotiveFragment : BaseFragment(), RecyclerListener {
                 true
             }
             R.id.report -> {
+                val intent = Intent(context, ReportActivity::class.java)
+                startActivity(intent)
                 true
             }
             else -> true

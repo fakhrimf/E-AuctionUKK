@@ -101,16 +101,17 @@
 
                 <TextView
                     android:id="@+id/textView2"
-                    android:layout_width="104dp"
+                    setDue="@{model.due}"
+                    android:layout_width="118dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
                     android:fontFamily="@font/montserrat"
-                    android:text="@{model.due}"
                     android:textAlignment="center"
                     android:textColor="@color/mainWhite"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/title"
-                    app:layout_constraintTop_toBottomOf="@+id/title"
-                    tools:text="1 Week Left!" />
+                    app:layout_constraintTop_toTopOf="@+id/title"
+                    tools:text="Due 27/04/2002" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"

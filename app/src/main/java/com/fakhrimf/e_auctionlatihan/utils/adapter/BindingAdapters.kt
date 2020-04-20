@@ -11,9 +11,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.fakhrimf.e_auctionlatihan.R
 import com.fakhrimf.e_auctionlatihan.model.ItemModel
+import com.fakhrimf.e_auctionlatihan.model.ProfileModel
 import com.fakhrimf.e_auctionlatihan.utils.DATE_FORMAT
 import com.fakhrimf.e_auctionlatihan.utils.GENDER_FEMALE
 import com.fakhrimf.e_auctionlatihan.utils.GENDER_MALE
+import com.fakhrimf.e_auctionlatihan.utils.NO_IMAGE
 import com.fakhrimf.e_auctionlatihan.utils.repository.Repository
 import jp.wasabeef.glide.transformations.BlurTransformation
 import java.text.NumberFormat
@@ -40,11 +42,10 @@ fun setGender(spinner: Spinner, gender: String) {
 
 @BindingAdapter("setProfileImage")
 fun setProfileImage(imageView: ImageView, url: String?) {
-    val noImage = "https://vectorified.com/images/no-profile-picture-icon-8.jpg"
     if(url != null) {
         Glide.with(imageView.rootView).load(url).into(imageView)
     } else {
-        Glide.with(imageView.rootView).load(noImage).into(imageView)
+        Glide.with(imageView.rootView).load(NO_IMAGE).into(imageView)
     }
 }
 
@@ -103,4 +104,27 @@ fun isLost(constraintLayout: ConstraintLayout, itemModel: ItemModel) {
     if (itemModel.highestBidder != Repository.getCurrentUser(constraintLayout.context)?.username && Date().after(sdf.parse(itemModel.due)) || Date() == sdf.parse(itemModel.due)) {
         constraintLayout.visibility = View.VISIBLE
     }
+}
+
+@BindingAdapter("setFinishedAt")
+fun setFinishedAt(textView: TextView, string: String?) {
+    val formatter = NumberFormat.getCurrencyInstance(Locale.getDefault())
+    formatter.currency = Currency.getInstance("IDR")
+    if (string != null) {
+        textView.text = textView.context.getString(R.string.finished_at, formatter.format(string.toDouble()))
+    } else {
+        textView.text = textView.context.getString(R.string.closed_no_bids)
+    }
+}
+
+@BindingAdapter("setDue")
+fun setDue(textView: TextView, string: String) {
+    textView.text = textView.context.getString(R.string.due_set, string)
+}
+
+@BindingAdapter("setBid")
+fun setBid(textView: TextView, string: String) {
+    val formatter = NumberFormat.getCurrencyInstance(Locale.getDefault())
+    formatter.currency = Currency.getInstance("IDR")
+    textView.text = textView.context.getString(R.string.bid_placeholder, formatter.format(string.toDouble()))
 }

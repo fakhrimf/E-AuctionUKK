@@ -9,6 +9,7 @@ const val WAITING_STATUS = "WAITING"
 const val APPROVED_STATUS = "APPROVED"
 const val DECLINED_STATUS = "DECLINED"
 const val DATE_FORMAT = "dd/MM/yyyy"
+const val NO_IMAGE = "https://vectorified.com/images/no-profile-picture-icon-8.jpg"
 
 //ROLE
 const val ROLE_USER = "User"

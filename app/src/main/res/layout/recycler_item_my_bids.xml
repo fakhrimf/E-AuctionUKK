@@ -272,7 +272,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat"
-                    android:text="@{model.due}"
+                    setDue="@{model.due}"
                     android:textAlignment="center"
                     android:textColor="@color/mainWhite"
                     app:layout_constraintBottom_toBottomOf="parent"

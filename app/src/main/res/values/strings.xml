@@ -98,4 +98,11 @@
     <string name="origin_error">Please input your origin</string>
     <string name="accept_ask">Accept these item(s)?</string>
     <string name="decline_ask">Decline these item(s)?</string>
+    <string name="no_items_report">Nothing here yet, finished items will appear here…</string>
+    <string name="finished_at">Finished at %s</string>
+    <string name="due_set">Due %s</string>
+    <string name="bid_placeholder">Bid %s</string>
+    <string name="username_error_chars">Username must be less than 20 chars.</string>
+    <string name="bids">Bids</string>
+    <string name="closed_no_bids">Closed with no bids:(</string>
 </resources>
